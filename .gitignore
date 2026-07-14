@@ -1,0 +1,22 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+*.log
+.env
+
+# Virtual environments
+.venv
+
+#File Format
+
+*.pdf
+*.csv
+
+
+#DataFolder
+data/*
+database/reports/*

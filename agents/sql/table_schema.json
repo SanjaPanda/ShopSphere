@@ -1,0 +1,395 @@
+{
+    "database": "shopsphere",
+    "dialect": "PostgreSQL",
+    "version": "1.0",
+    "tables": [
+        {
+            "table_name": "customers",
+            "description": "Stores customer demographic and location information. Each record represents a customer account.",
+            "columns": [
+                {
+                    "name": "customer_id",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "customer_unique_id",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "customer_zip_code_prefix",
+                    "type": "int64",
+                    "nullable": false
+                },
+                {
+                    "name": "customer_city",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "customer_state",
+                    "type": "str",
+                    "nullable": false
+                }
+            ]
+        },
+        {
+            "table_name": "geolocations",
+            "description": "Lookup table mapping ZIP code prefixes to latitude, longitude, city and state.",
+            "columns": [
+                {
+                    "name": "geolocation_zip_code_prefix",
+                    "type": "int64",
+                    "nullable": false
+                },
+                {
+                    "name": "geolocation_lat",
+                    "type": "float64",
+                    "nullable": false
+                },
+                {
+                    "name": "geolocation_lng",
+                    "type": "float64",
+                    "nullable": false
+                },
+                {
+                    "name": "geolocation_city",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "geolocation_state",
+                    "type": "str",
+                    "nullable": false
+                }
+            ]
+        },
+        {
+            "table_name": "order_items",
+            "description": "Stores individual products purchased within each order, including seller, price and freight cost.",
+            "columns": [
+                {
+                    "name": "order_id",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "order_item_id",
+                    "type": "int64",
+                    "nullable": false
+                },
+                {
+                    "name": "product_id",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "seller_id",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "shipping_limit_date",
+                    "type": "datetime64[us]",
+                    "nullable": false
+                },
+                {
+                    "name": "price",
+                    "type": "float64",
+                    "nullable": false
+                },
+                {
+                    "name": "freight_value",
+                    "type": "float64",
+                    "nullable": false
+                }
+            ]
+        },
+        {
+            "table_name": "orders",
+            "description": "Stores order lifecycle information including timestamps and order status.",
+            "columns": [
+                {
+                    "name": "order_id",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "customer_id",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "order_status",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "order_purchase_timestamp",
+                    "type": "datetime64[us]",
+                    "nullable": false
+                },
+                {
+                    "name": "order_approved_at",
+                    "type": "datetime64[us]",
+                    "nullable": true
+                },
+                {
+                    "name": "order_delivered_carrier_date",
+                    "type": "datetime64[us]",
+                    "nullable": true
+                },
+                {
+                    "name": "order_delivered_customer_date",
+                    "type": "datetime64[us]",
+                    "nullable": true
+                },
+                {
+                    "name": "order_estimated_delivery_date",
+                    "type": "datetime64[us]",
+                    "nullable": false
+                }
+            ]
+        },
+        {
+            "table_name": "payments",
+            "description": "Stores payment information for each order, including payment method and value.",
+            "columns": [
+                {
+                    "name": "order_id",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "payment_sequential",
+                    "type": "int64",
+                    "nullable": false
+                },
+                {
+                    "name": "payment_type",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "payment_installments",
+                    "type": "int64",
+                    "nullable": false
+                },
+                {
+                    "name": "payment_value",
+                    "type": "float64",
+                    "nullable": false
+                }
+            ]
+        },
+        {
+            "table_name": "products",
+            "description": "Stores information about individual products, including category, dimensions, and weight.",
+            "columns": [
+                {
+                    "name": "product_id",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "product_category_name",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "product_name_lenght",
+                    "type": "int64",
+                    "nullable": false
+                },
+                {
+                    "name": "product_description_lenght",
+                    "type": "int64",
+                    "nullable": false
+                },
+                {
+                    "name": "product_photos_qty",
+                    "type": "int64",
+                    "nullable": false
+                },
+                {
+                    "name": "product_weight_g",
+                    "type": "float64",
+                    "nullable": false
+                },
+                {
+                    "name": "product_length_cm",
+                    "type": "float64",
+                    "nullable": false
+                },
+                {
+                    "name": "product_height_cm",
+                    "type": "float64",
+                    "nullable": false
+                },
+                {
+                    "name": "product_width_cm",
+                    "type": "float64",
+                    "nullable": false
+                }
+            ]
+        },
+        {
+            "table_name": "reviews",
+            "description": "Stores customer reviews for products, including ratings and comments.",
+            "columns": [
+                {
+                    "name": "review_id",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "order_id",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "review_score",
+                    "type": "int64",
+                    "nullable": false
+                },
+                {
+                    "name": "review_comment_title",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "review_comment_message",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "review_creation_date",
+                    "type": "datetime64[us]",
+                    "nullable": false
+                },
+                {
+                    "name": "review_answer_timestamp",
+                    "type": "datetime64[us]",
+                    "nullable": false
+                }
+            ]
+        },
+        {
+            "table_name": "sellers",
+            "description": "Stores information about sellers, including their location and contact details.",
+            "columns": [
+                {
+                    "name": "seller_id",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "seller_zip_code_prefix",
+                    "type": "int64",
+                    "nullable": false
+                },
+                {
+                    "name": "seller_city",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "seller_state",
+                    "type": "str",
+                    "nullable": false
+                }
+            ]
+        },
+        {
+            "table_name": "translations",
+            "description": "Translation table mapping Portuguese product category names to English equivalents.",
+            "columns": [
+                {
+                    "name": "product_category_name",
+                    "type": "str",
+                    "nullable": false
+                },
+                {
+                    "name": "product_category_name_english",
+                    "type": "str",
+                    "nullable": false
+                }
+            ]
+        }
+    ],
+    "relationships": [
+    {
+        "from_table": "orders",
+        "from_column": "customer_id",
+        "to_table": "customers",
+        "to_column": "customer_id",
+        "relationship": "many-to-one",
+        "description": "Each order is placed by one customer."
+    },
+    {
+        "from_table": "order_items",
+        "from_column": "order_id",
+        "to_table": "orders",
+        "to_column": "order_id",
+        "relationship": "many-to-one",
+        "description": "Each order can contain multiple order items."
+    },
+    {
+        "from_table": "order_items",
+        "from_column": "product_id",
+        "to_table": "products",
+        "to_column": "product_id",
+        "relationship": "many-to-one",
+        "description": "Each order item references a purchased product."
+    },
+    {
+        "from_table": "payments",
+        "from_column": "order_id",
+        "to_table": "orders",
+        "to_column": "order_id",
+        "relationship": "many-to-one",
+        "description": "An order can have one or more payment records."
+    },
+    {
+        "from_table": "reviews",
+        "from_column": "order_id",
+        "to_table": "orders",
+        "to_column": "order_id",
+        "relationship": "one-to-one",
+        "description": "Each review corresponds to an order."
+    },
+    {
+        "from_table": "products",
+        "from_column": "product_category_name",
+        "to_table": "translations",
+        "to_column": "product_category_name",
+        "relationship": "many-to-one",
+        "description": "Maps Portuguese product categories to English translations."
+    },
+    {
+        "from_table": "order_items",
+        "from_column": "seller_id",
+        "to_table": "sellers",
+        "to_column": "seller_id",
+        "relationship": "many-to-one",
+        "description": "Each order item is fulfilled by a seller."
+    },
+    {
+        "from_table": "geolocations",
+        "from_column": "geolocation_zip_code_prefix",
+        "to_table": "customers",
+        "to_column": "customer_zip_code_prefix",
+        "relationship": "many-to-many",
+        "description": "Maps customer ZIP prefixes to geographical coordinates."
+    },
+    {
+        "from_table": "geolocations",
+        "from_column": "geolocation_zip_code_prefix",
+        "to_table": "sellers",
+        "to_column": "seller_zip_code_prefix",
+        "relationship": "many-to-many",
+        "description": "Maps seller ZIP prefixes to geographical coordinates."
+    }
+]
+}
